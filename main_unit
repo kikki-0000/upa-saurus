@@ -1,0 +1,364 @@
+input.onButtonPressed(Button.A, function () {
+    状態 = 2
+})
+radio.onReceivedString(function (receivedString) {
+    if (receivedString.includes("right")) {
+        right_hand = receivedString
+    } else if (receivedString.includes("left")) {
+        left_hand = receivedString
+    }
+})
+input.onButtonPressed(Button.B, function () {
+    状態 = 8
+})
+let left_hand = ""
+let right_hand = ""
+let Pet = 0
+let 状態 = 0
+let HP = 100
+let パンチ = 0
+radio.setGroup(1)
+let strip = neopixel.create(DigitalPin.P0, 432, NeoPixelMode.RGB)
+let range1 = strip.range(0, 144)
+let range2 = strip.range(144, 144)
+let range3 = strip.range(288, 144)
+let 開始時間 = 0
+let 経過時間 = 0
+状態 = 0
+let 親密度 = 0
+Pet += 0
+basic.forever(function () {
+    if (right_hand == "head_right" && left_hand == "idle_left") {
+        パンチ = 1
+    } else if (right_hand == "idle_right" && left_hand == "head_left") {
+        パンチ = 2
+    } else if (right_hand == "body_right" && left_hand == "idle_left") {
+        パンチ = 3
+    } else if (right_hand == "idle_right" && left_hand == "body_left") {
+        パンチ = 4
+    } else if (right_hand == "tail_right" && left_hand == "idle_left") {
+        パンチ = 5
+    } else if (right_hand == "idle_right" && left_hand == "tail_left") {
+        パンチ = 6
+    } else if (right_hand == "idle_right" && left_hand == "idle_left") {
+        パンチ = 7
+    } else if (right_hand == "P:head_right" || left_hand == "P:head_left") {
+        Pet = 1
+    } else if (right_hand == "P:head_right" && left_hand == "P:head_left") {
+        Pet = 2
+    } else if (right_hand == "P:body_right" || left_hand == "P:body_left") {
+        Pet = 3
+    } else if (right_hand == "P:body_right" && left_hand == "P:body_left") {
+        Pet = 4
+    } else if (right_hand == "P:tail_right" || left_hand == "P:tail_left") {
+        Pet = 5
+    } else if (right_hand == "P:tail_right" && left_hand == "P:tail_left") {
+        Pet = 6
+    }
+})
+basic.forever(function () {
+    if (HP == 100 || HP == 95) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(0, 255, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(0, 255, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(0, 255, 0))
+        }
+    } else if (HP == 90 || HP == 85) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(100, 255, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(100, 255, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(100, 255, 0))
+        }
+    } else if (HP == 80 || HP == 75) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(200, 255, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(200, 255, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(200, 255, 0))
+        }
+    } else if (HP == 70 || HP == 65) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(255, 255, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(255, 255, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(255, 255, 0))
+        }
+    } else if (HP == 60 || HP == 55) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(255, 200, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(255, 200, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(255, 200, 0))
+        }
+    } else if (HP == 50 || HP == 45) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(255, 150, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(255, 150, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(255, 150, 0))
+        }
+    } else if (HP == 40 || HP == 35) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(255, 100, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(255, 100, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(255, 100, 0))
+        }
+    } else if (HP == 30 || HP == 25) {
+        if (状態 == 3) {
+            range1.showColor(neopixel.rgb(255, 0, 0))
+        } else if (状態 == 4) {
+            range2.showColor(neopixel.rgb(255, 0, 0))
+        } else if (状態 == 5) {
+            range3.showColor(neopixel.rgb(255, 0, 0))
+        }
+    } else if (HP == 20 || HP == 15) {
+        if (状態 == 3) {
+            for (let index = 0; index < 5; index++) {
+                range1.showColor(neopixel.rgb(255, 0, 0))
+                basic.pause(500)
+                strip.showColor(neopixel.colors(NeoPixelColors.Black))
+                basic.pause(500)
+            }
+        } else if (状態 == 4) {
+            for (let index = 0; index < 5; index++) {
+                range2.showColor(neopixel.rgb(255, 0, 0))
+                basic.pause(500)
+                strip.showColor(neopixel.colors(NeoPixelColors.Black))
+                basic.pause(500)
+            }
+        } else if (状態 == 5) {
+            for (let index = 0; index < 5; index++) {
+                range3.showColor(neopixel.rgb(255, 0, 0))
+                basic.pause(500)
+                strip.showColor(neopixel.colors(NeoPixelColors.Black))
+                basic.pause(500)
+            }
+        }
+    } else if (HP == 10 || HP == 5) {
+        if (状態 == 3) {
+            for (let index = 0; index < 10; index++) {
+                range1.showColor(neopixel.rgb(255, 0, 0))
+                basic.pause(250)
+                strip.showColor(neopixel.colors(NeoPixelColors.Black))
+                basic.pause(250)
+            }
+        } else if (状態 == 4) {
+            for (let index = 0; index < 10; index++) {
+                range2.showColor(neopixel.rgb(255, 0, 0))
+                basic.pause(250)
+                strip.showColor(neopixel.colors(NeoPixelColors.Black))
+                basic.pause(250)
+            }
+        } else if (状態 == 5) {
+            for (let index = 0; index < 10; index++) {
+                range3.showColor(neopixel.rgb(255, 0, 0))
+                basic.pause(250)
+                strip.showColor(neopixel.colors(NeoPixelColors.Black))
+                basic.pause(250)
+            }
+        }
+    }
+})
+basic.forever(function () {
+    経過時間 = input.runningTime() - 開始時間
+})
+basic.forever(function () {
+    if (状態 == 3) {
+        basic.showNumber(HP)
+        if (パンチ == 1) {
+            HP = HP - 5
+            状態 = 2
+        } else if (パンチ == 2) {
+            HP = HP - 10
+            状態 = 2
+        } else if (パンチ == 0) {
+            開始時間 = input.runningTime()
+            状態 = 3
+        } else if (パンチ == 7) {
+            if (経過時間 >= 10000) {
+                状態 = 6
+            } else {
+                状態 = 3
+            }
+        } else {
+            状態 = 2
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 0) {
+        パンチ = 0
+        HP = 100
+        親密度 = 0
+        strip.showColor(neopixel.colors(NeoPixelColors.Black))
+        basic.showIcon(IconNames.Heart)
+    } else if (状態 == 2) {
+        パンチ = 0
+        if (HP <= 0) {
+            HP = 0
+            basic.showNumber(HP)
+            strip.showColor(neopixel.colors(NeoPixelColors.Black))
+            basic.pause(500)
+            状態 = 7
+        } else {
+            strip.showColor(neopixel.colors(NeoPixelColors.Black))
+            開始時間 = input.runningTime()
+            状態 = randint(3, 5)
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 4) {
+        basic.showNumber(HP)
+        if (パンチ == 3) {
+            HP = HP - 5
+            状態 = 2
+        } else if (パンチ == 4) {
+            HP = HP - 10
+            状態 = 2
+        } else if (パンチ == 0) {
+            開始時間 = input.runningTime()
+            状態 = 4
+        } else if (パンチ == 7) {
+            if (経過時間 >= 10000) {
+                状態 = 6
+            } else {
+                状態 = 4
+            }
+        } else {
+            状態 = 2
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 5) {
+        basic.showNumber(HP)
+        if (パンチ == 5) {
+            HP = HP - 10
+            状態 = 2
+        } else if (パンチ == 6) {
+            HP = HP - 20
+            状態 = 2
+        } else if (パンチ == 0) {
+            開始時間 = input.runningTime()
+            状態 = 5
+        } else if (パンチ == 7) {
+            if (経過時間 >= 10000) {
+                状態 = 6
+            } else {
+                状態 = 5
+            }
+        } else {
+            状態 = 2
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 9) {
+        basic.showNumber(親密度)
+        if (Pet == 1) {
+            親密度 += 20
+            状態 = 8
+            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        } else if (Pet == 2) {
+            親密度 += 30
+            状態 = 8
+            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        } else {
+            状態 = 9
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 10) {
+        basic.showNumber(親密度)
+        if (Pet == 3) {
+            親密度 += 10
+            状態 = 8
+            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        } else if (Pet == 4) {
+            親密度 += 20
+            状態 = 8
+            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        } else {
+            状態 = 9
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 8) {
+        Pet = 0
+        if (親密度 >= 100) {
+            状態 = 12
+        } else {
+            状態 = randint(9, 11)
+        }
+    }
+})
+basic.forever(function () {
+    if (状態 == 6) {
+        strip.showColor(neopixel.colors(NeoPixelColors.Black))
+        music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Dadadadum), music.PlaybackMode.InBackground)
+        basic.showString("GAME OVER")
+        basic.pause(2000)
+        状態 = 0
+    } else if (状態 == 7) {
+        strip.showRainbow(1, 360)
+        music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Ode), music.PlaybackMode.InBackground)
+        for (let index = 0; index < 2; index++) {
+            basic.showString("VICTORY")
+        }
+        strip.showRainbow(1, 360)
+        basic.pause(6000)
+        状態 = 0
+    }
+})
+basic.forever(function () {
+    if (状態 >= 9 && 状態 != 12) {
+        if (親密度 >= 0) {
+            strip.showColor(neopixel.colors(NeoPixelColors.Blue))
+        } else if (親密度 >= 30) {
+            strip.showColor(neopixel.colors(NeoPixelColors.Green))
+        } else if (親密度 >= 60) {
+            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
+        } else if (親密度 >= 90) {
+            strip.showColor(neopixel.colors(NeoPixelColors.Orange))
+        }
+    } else if (状態 == 12) {
+        strip.showRainbow(1, 360)
+        music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Entertainer), music.PlaybackMode.InBackground)
+        for (let index = 0; index < 4; index++) {
+            basic.showIcon(IconNames.SmallHeart)
+            basic.pause(200)
+            basic.showIcon(IconNames.Heart)
+            basic.pause(200)
+        }
+        状態 = 0
+    }
+})
+basic.forever(function () {
+    if (状態 == 11) {
+        basic.showNumber(親密度)
+        if (Pet == 5) {
+            親密度 += 10
+            状態 = 8
+            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        } else if (Pet == 6) {
+            親密度 += 20
+            状態 = 8
+            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        } else {
+            状態 = 9
+        }
+    }
+})
