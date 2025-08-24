@@ -1,0 +1,35 @@
+ml.onStart(ml.event.IdleRight, function () {
+    my_state = "idle_right"
+})
+ml.onStart(ml.event.PheadRight, function () {
+    my_state = "P:head_right"
+})
+ml.onStart(ml.event.PbodyRight, function () {
+    my_state = "P:body_right"
+})
+ml.onStart(ml.event.PtailRight, function () {
+    my_state = "P:tail_right"
+})
+let my_state = ""
+my_state = ""
+radio.setGroup(1)
+basic.forever(function () {
+    if (my_state == "P:head_right") {
+        radio.sendString(my_state)
+        basic.showIcon(IconNames.Heart)
+        basic.pause(500)
+    } else if (my_state == "P:body_right") {
+        radio.sendString(my_state)
+        basic.showIcon(IconNames.SmallHeart)
+        basic.pause(500)
+    } else if (my_state == "P:tail_right") {
+        radio.sendString(my_state)
+        basic.showIcon(IconNames.Happy)
+        basic.pause(500)
+    } else if (my_state == "idle_right") {
+        radio.sendString(my_state)
+        basic.showIcon(IconNames.House)
+    } else {
+        radio.sendString(my_state)
+    }
+})
