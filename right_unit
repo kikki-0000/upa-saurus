@@ -1,0 +1,38 @@
+ml.onStart(ml.event.IdleRight, function () {
+    my_state = "idle_right"
+})
+ml.onStart(ml.event.BodyRight, function () {
+    my_state = "body_right"
+})
+ml.onStart(ml.event.HeadRight, function () {
+    my_state = "head_right"
+})
+ml.onStart(ml.event.TailRight, function () {
+    my_state = "tail_right"
+})
+let my_state = ""
+my_state = ""
+radio.setGroup(1)
+basic.forever(function () {
+    if (my_state == "head_right") {
+        radio.sendString(my_state)
+        music.play(music.builtinPlayableSoundEffect(soundExpression.slide), music.PlaybackMode.UntilDone)
+        basic.showIcon(IconNames.SmallSquare)
+        basic.pause(500)
+    } else if (my_state == "body_right") {
+        radio.sendString(my_state)
+        music.play(music.builtinPlayableSoundEffect(soundExpression.giggle), music.PlaybackMode.UntilDone)
+        basic.showIcon(IconNames.Square)
+        basic.pause(500)
+    } else if (my_state == "tail_right") {
+        radio.sendString(my_state)
+        music.play(music.builtinPlayableSoundEffect(soundExpression.happy), music.PlaybackMode.UntilDone)
+        basic.showIcon(IconNames.Sword)
+        basic.pause(500)
+    } else if (my_state == "idle_right") {
+        radio.sendString(my_state)
+        basic.showIcon(IconNames.House)
+    } else {
+        radio.sendString(my_state)
+    }
+})
