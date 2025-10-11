@@ -1,364 +1,403 @@
-input.onButtonPressed(Button.A, function () {
-    状態 = 2
-})
-radio.onReceivedString(function (receivedString) {
-    if (receivedString.includes("right")) {
-        right_hand = receivedString
-    } else if (receivedString.includes("left")) {
-        left_hand = receivedString
-    }
-})
-input.onButtonPressed(Button.B, function () {
-    状態 = 8
-})
-let left_hand = ""
-let right_hand = ""
-let Pet = 0
-let 状態 = 0
-let HP = 100
-let パンチ = 0
-radio.setGroup(1)
-let strip = neopixel.create(DigitalPin.P0, 432, NeoPixelMode.RGB)
-let range1 = strip.range(0, 144)
-let range2 = strip.range(144, 144)
-let range3 = strip.range(288, 144)
-let 開始時間 = 0
-let 経過時間 = 0
-状態 = 0
-let 親密度 = 0
-Pet += 0
-basic.forever(function () {
-    if (right_hand == "head_right" && left_hand == "idle_left") {
-        パンチ = 1
-    } else if (right_hand == "idle_right" && left_hand == "head_left") {
-        パンチ = 2
-    } else if (right_hand == "body_right" && left_hand == "idle_left") {
-        パンチ = 3
-    } else if (right_hand == "idle_right" && left_hand == "body_left") {
-        パンチ = 4
-    } else if (right_hand == "tail_right" && left_hand == "idle_left") {
-        パンチ = 5
-    } else if (right_hand == "idle_right" && left_hand == "tail_left") {
-        パンチ = 6
-    } else if (right_hand == "idle_right" && left_hand == "idle_left") {
-        パンチ = 7
-    } else if (right_hand == "P:head_right" || left_hand == "P:head_left") {
-        Pet = 1
-    } else if (right_hand == "P:head_right" && left_hand == "P:head_left") {
-        Pet = 2
-    } else if (right_hand == "P:body_right" || left_hand == "P:body_left") {
-        Pet = 3
-    } else if (right_hand == "P:body_right" && left_hand == "P:body_left") {
-        Pet = 4
-    } else if (right_hand == "P:tail_right" || left_hand == "P:tail_left") {
-        Pet = 5
-    } else if (right_hand == "P:tail_right" && left_hand == "P:tail_left") {
-        Pet = 6
-    }
-})
-basic.forever(function () {
-    if (HP == 100 || HP == 95) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(0, 255, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(0, 255, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(0, 255, 0))
-        }
-    } else if (HP == 90 || HP == 85) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(100, 255, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(100, 255, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(100, 255, 0))
-        }
-    } else if (HP == 80 || HP == 75) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(200, 255, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(200, 255, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(200, 255, 0))
-        }
-    } else if (HP == 70 || HP == 65) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(255, 255, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(255, 255, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(255, 255, 0))
-        }
-    } else if (HP == 60 || HP == 55) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(255, 200, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(255, 200, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(255, 200, 0))
-        }
-    } else if (HP == 50 || HP == 45) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(255, 150, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(255, 150, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(255, 150, 0))
-        }
-    } else if (HP == 40 || HP == 35) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(255, 100, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(255, 100, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(255, 100, 0))
-        }
-    } else if (HP == 30 || HP == 25) {
-        if (状態 == 3) {
-            range1.showColor(neopixel.rgb(255, 0, 0))
-        } else if (状態 == 4) {
-            range2.showColor(neopixel.rgb(255, 0, 0))
-        } else if (状態 == 5) {
-            range3.showColor(neopixel.rgb(255, 0, 0))
-        }
-    } else if (HP == 20 || HP == 15) {
-        if (状態 == 3) {
-            for (let index = 0; index < 5; index++) {
-                range1.showColor(neopixel.rgb(255, 0, 0))
-                basic.pause(500)
-                strip.showColor(neopixel.colors(NeoPixelColors.Black))
-                basic.pause(500)
-            }
-        } else if (状態 == 4) {
-            for (let index = 0; index < 5; index++) {
-                range2.showColor(neopixel.rgb(255, 0, 0))
-                basic.pause(500)
-                strip.showColor(neopixel.colors(NeoPixelColors.Black))
-                basic.pause(500)
-            }
-        } else if (状態 == 5) {
-            for (let index = 0; index < 5; index++) {
-                range3.showColor(neopixel.rgb(255, 0, 0))
-                basic.pause(500)
-                strip.showColor(neopixel.colors(NeoPixelColors.Black))
-                basic.pause(500)
-            }
-        }
-    } else if (HP == 10 || HP == 5) {
-        if (状態 == 3) {
-            for (let index = 0; index < 10; index++) {
-                range1.showColor(neopixel.rgb(255, 0, 0))
-                basic.pause(250)
-                strip.showColor(neopixel.colors(NeoPixelColors.Black))
-                basic.pause(250)
-            }
-        } else if (状態 == 4) {
-            for (let index = 0; index < 10; index++) {
-                range2.showColor(neopixel.rgb(255, 0, 0))
-                basic.pause(250)
-                strip.showColor(neopixel.colors(NeoPixelColors.Black))
-                basic.pause(250)
-            }
-        } else if (状態 == 5) {
-            for (let index = 0; index < 10; index++) {
-                range3.showColor(neopixel.rgb(255, 0, 0))
-                basic.pause(250)
-                strip.showColor(neopixel.colors(NeoPixelColors.Black))
-                basic.pause(250)
-            }
-        }
-    }
-})
-basic.forever(function () {
-    経過時間 = input.runningTime() - 開始時間
-})
-basic.forever(function () {
-    if (状態 == 3) {
-        basic.showNumber(HP)
-        if (パンチ == 1) {
-            HP = HP - 5
-            状態 = 2
-        } else if (パンチ == 2) {
-            HP = HP - 10
-            状態 = 2
-        } else if (パンチ == 0) {
-            開始時間 = input.runningTime()
-            状態 = 3
-        } else if (パンチ == 7) {
-            if (経過時間 >= 10000) {
-                状態 = 6
-            } else {
-                状態 = 3
-            }
-        } else {
-            状態 = 2
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 0) {
-        パンチ = 0
-        HP = 100
-        親密度 = 0
-        strip.showColor(neopixel.colors(NeoPixelColors.Black))
-        basic.showIcon(IconNames.Heart)
-    } else if (状態 == 2) {
-        パンチ = 0
-        if (HP <= 0) {
-            HP = 0
-            basic.showNumber(HP)
-            strip.showColor(neopixel.colors(NeoPixelColors.Black))
+# --- Global Variable Declarations ---
+def update_led_strip():
+    global target_range2
+    # Updates the LED strip color based on HP.
+    # Only update the LED during battle states
+    if [3, 4, 5].index_of(gameState2) < 0:
+        return
+    if gameState2 == 3:
+        target_range2 = range1
+    elif gameState2 == 4:
+        target_range2 = range2
+    elif gameState2 == 5:
+        target_range2 = range3
+    # 2.「HP」の値に応じて、色や点滅を制御する
+    if HP >= 70:
+        target_range2.show_color(neopixel.rgb(0, 255, 0))
+    elif HP >= 50:
+        # 緑
+        target_range2.show_color(neopixel.rgb(255, 255, 0))
+    elif HP >= 30:
+        target_range2.show_color(neopixel.rgb(255, 0, 0))
+    elif HP >= 10:
+        for index in range(4):
+            target_range2.show_color(neopixel.rgb(255, 0, 0))
             basic.pause(500)
-            状態 = 7
-        } else {
-            strip.showColor(neopixel.colors(NeoPixelColors.Black))
-            開始時間 = input.runningTime()
-            状態 = randint(3, 5)
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 4) {
-        basic.showNumber(HP)
-        if (パンチ == 3) {
-            HP = HP - 5
-            状態 = 2
-        } else if (パンチ == 4) {
-            HP = HP - 10
-            状態 = 2
-        } else if (パンチ == 0) {
-            開始時間 = input.runningTime()
-            状態 = 4
-        } else if (パンチ == 7) {
-            if (経過時間 >= 10000) {
-                状態 = 6
-            } else {
-                状態 = 4
-            }
-        } else {
-            状態 = 2
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 5) {
-        basic.showNumber(HP)
-        if (パンチ == 5) {
-            HP = HP - 10
-            状態 = 2
-        } else if (パンチ == 6) {
-            HP = HP - 20
-            状態 = 2
-        } else if (パンチ == 0) {
-            開始時間 = input.runningTime()
-            状態 = 5
-        } else if (パンチ == 7) {
-            if (経過時間 >= 10000) {
-                状態 = 6
-            } else {
-                状態 = 5
-            }
-        } else {
-            状態 = 2
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 9) {
-        basic.showNumber(親密度)
-        if (Pet == 1) {
-            親密度 += 20
-            状態 = 8
-            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
-        } else if (Pet == 2) {
-            親密度 += 30
-            状態 = 8
-            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
-        } else {
-            状態 = 9
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 10) {
-        basic.showNumber(親密度)
-        if (Pet == 3) {
-            親密度 += 10
-            状態 = 8
-            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
-        } else if (Pet == 4) {
-            親密度 += 20
-            状態 = 8
-            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
-        } else {
-            状態 = 9
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 8) {
-        Pet = 0
-        if (親密度 >= 100) {
-            状態 = 12
-        } else {
-            状態 = randint(9, 11)
-        }
-    }
-})
-basic.forever(function () {
-    if (状態 == 6) {
-        strip.showColor(neopixel.colors(NeoPixelColors.Black))
-        music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Dadadadum), music.PlaybackMode.InBackground)
-        basic.showString("GAME OVER")
+            strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+            basic.pause(500)
+    elif HP > 0:
+        for index2 in range(4):
+            target_range2.show_color(neopixel.rgb(255, 0, 0))
+            basic.pause(200)
+            strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+            basic.pause(200)
+# --- Event Handler Functions ---
+
+def on_button_pressed_a():
+    global gameState2
+    # When Button A is pressed: enter battle mode
+    gameState2 = 2
+input.on_button_pressed(Button.A, on_button_pressed_a)
+
+# Return to the initial state
+def play_affection_max_animation():
+    global gameState2
+    # Plays the max affection animation.
+    strip.show_rainbow(1, 360)
+    music._play_default_background(music.built_in_playable_melody(Melodies.ENTERTAINER),
+        music.PlaybackMode.IN_BACKGROUND)
+    for index3 in range(4):
+        basic.show_icon(IconNames.SMALL_HEART)
+        basic.pause(200)
+        basic.show_icon(IconNames.HEART)
+        basic.pause(200)
+    gameState2 = 0
+# --- Logic Processing Functions ---
+def process_hand_signals():
+    global punchType, petType
+    # Interprets received hand signals to determine the type of punch or pet.
+    if right_hand == "head_right" or left_hand == "head_left":
+        punchType = 1
+    elif right_hand == "body_right" or left_hand == "body_left":
+        punchType = 2
+    elif right_hand == "tail_right" or left_hand == "tail_left":
+        punchType = 3
+    elif right_hand == "idle_right" and left_hand == "idle_left":
+        punchType = 4
+    elif right_hand == "P:head_right" or left_hand == "P:head_left":
+        petType = 1
+    elif right_hand == "P:body_right" or left_hand == "P:body_left":
+        petType = 2
+    elif right_hand == "P:tail_right" or left_hand == "P:tail_left":
+        petType = 3
+# --- Initialization Function ---
+def initialize():
+    global gameState2, HP, affection, punchType, petType, right_hand, left_hand, strip, range1, range2, range3
+    # Initializes variables and sets up hardware on program startup.
+    gameState2 = 0
+    HP = 100
+    affection = 0
+    punchType = 0
+    petType = 0
+    right_hand = ""
+    left_hand = ""
+    radio.set_group(1)
+    strip = neopixel.create(DigitalPin.P0, 432, NeoPixelMode.RGB)
+    range1 = strip.range(0, 144)
+    range2 = strip.range(144, 144)
+    range3 = strip.range(288, 144)
+    strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+    basic.show_icon(IconNames.HEART)
+def handle_battle_state():
+    global HP, gameState2
+    damage = 0
+    # Handles the logic for battle states (3, 4, 5).
+    update_led_strip()
+    # Always update LED based on HP
+    basic.show_number(HP)
+    # Determine damage based on the state and punch type
+    if gameState2 == 3:
+        # head
+        start_time2 = input.running_time()
+        # ループ開始時の時間を記録
+        # stateが3の間、このループを繰り返す
+        while gameState2 == 3:
+            # 1. HPを表示
+            basic.show_number(HP)
+            # 2. パンチ入力をチェック
+            process_hand_signals()
+            # この関数でpunchの値が更新されると仮定
+            if punchType == 1:
+                HP += 0 - 10
+                gameState2 = 2
+                # 攻撃成功、次のステートへ
+                break
+            # ループを抜ける
+            # 3. タイムオーバーをチェック
+            passed_time2 = input.running_time() - start_time2
+            if passed_time2 >= 10000:
+                # 10秒経過したら
+                gameState2 = 6
+                # タイムオーバー
+                break
+    elif gameState2 == 4:
+        # Body
+        start_time2 = input.running_time()
+        # ループ開始時の時間を記録
+        # stateが3の間、このループを繰り返す
+        while gameState2 == 4:
+            # 1. HPを表示
+            basic.show_number(HP)
+            # 2. パンチ入力をチェック
+            process_hand_signals()
+            # この関数でpunchの値が更新されると仮定
+            if punchType == 2:
+                HP += 0 - 20
+                gameState2 = 2
+                # 攻撃成功、次のステートへ
+                break
+            # ループを抜ける
+            # 3. タイムオーバーをチェック
+            passed_time2 = input.running_time() - start_time2
+            if passed_time2 >= 10000:
+                # 10秒経過したら
+                gameState2 = 6
+                # タイムオーバー
+                break
+    elif gameState2 == 5:
+        # Tail
+        start_time2 = input.running_time()
+        # ループ開始時の時間を記録
+        # stateが3の間、このループを繰り返す
+        while gameState2 == 5:
+            # 1. HPを表示
+            basic.show_number(HP)
+            # 2. パンチ入力をチェック
+            process_hand_signals()
+            # この関数でpunchの値が更新されると仮定
+            if punchType == 3:
+                HP += 0 - 30
+                gameState2 = 2
+                # 攻撃成功、次のステートへ
+                break
+            # ループを抜ける
+            # 3. タイムオーバーをチェック
+            passed_time2 = input.running_time() - start_time2
+            if passed_time2 >= 10000:
+                # 10秒経過したら
+                gameState2 = 6
+                # タイムオーバー
+                break
+    # If damage was dealt, reduce HP and move to the next state
+    # If the punch missed or was invalid, maintain the current state
+    if damage > 0:
+        HP += 0 - damage
+        gameState2 = 2
+    elif punchType == 0 or punchType == 7:
+        pass
+    elif punchType != 0:
+        # If it was an invalid punch to a valid part
+        gameState2 = 2
+def gameOver():
+    global gameState2
+    if gameState2 == 6:
+        # ゲームオーバー
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        music.play_melody("C5 A F C F E D C ", 120)
+        basic.show_string("GAME OVER")
         basic.pause(2000)
-        状態 = 0
-    } else if (状態 == 7) {
-        strip.showRainbow(1, 360)
-        music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Ode), music.PlaybackMode.InBackground)
-        for (let index = 0; index < 2; index++) {
-            basic.showString("VICTORY")
-        }
-        strip.showRainbow(1, 360)
-        basic.pause(6000)
-        状態 = 0
-    }
-})
-basic.forever(function () {
-    if (状態 >= 9 && 状態 != 12) {
-        if (親密度 >= 0) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Blue))
-        } else if (親密度 >= 30) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Green))
-        } else if (親密度 >= 60) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
-        } else if (親密度 >= 90) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Orange))
-        }
-    } else if (状態 == 12) {
-        strip.showRainbow(1, 360)
-        music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Entertainer), music.PlaybackMode.InBackground)
-        for (let index = 0; index < 4; index++) {
-            basic.showIcon(IconNames.SmallHeart)
-            basic.pause(200)
-            basic.showIcon(IconNames.Heart)
-            basic.pause(200)
-        }
-        状態 = 0
-    }
-})
-basic.forever(function () {
-    if (状態 == 11) {
-        basic.showNumber(親密度)
-        if (Pet == 5) {
-            親密度 += 10
-            状態 = 8
-            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
-        } else if (Pet == 6) {
-            親密度 += 20
-            状態 = 8
-            music.play(music.createSoundExpression(WaveShape.Sine, 2306, 3095, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
-        } else {
-            状態 = 9
-        }
-    }
-})
+        gameState2 = 0
+# Additional effects like blinking could be added here for low HP
+def play_victory_animation():
+    global gameState2
+    # Plays the victory (HP=0) animation.
+    strip.show_rainbow(1, 360)
+    music._play_default_background(music.built_in_playable_melody(Melodies.ODE),
+        music.PlaybackMode.IN_BACKGROUND)
+    for index4 in range(2):
+        basic.show_string("VICTORY")
+    basic.pause(6000)
+    gameState2 = 0
+
+def on_received_string(receivedString):
+    global right_hand, left_hand
+    # Handles processing when a string is received via radio.
+    if receivedString.includes("right"):
+        right_hand = receivedString
+    elif receivedString.includes("left"):
+        left_hand = receivedString
+radio.on_received_string(on_received_string)
+
+def on_button_pressed_b():
+    global gameState2
+    # When Button B is pressed: enter pet mode
+    gameState2 = 8
+input.on_button_pressed(Button.B, on_button_pressed_b)
+
+def update_friendship_led():
+    if [9, 10, 11].index_of(gameState2) < 0:
+            return
+    if gameState2 == 9:
+            target_range2 = range1
+    elif gameState2 == 10:
+            target_range2 = range2
+    elif gameState2 == 11:
+            target_range2 = range3
+    if affection >= 90:
+        target_range2.show_color(neopixel.colors(NeoPixelColors.ORANGE))
+    elif affection >= 60:
+        target_range2.show_color(neopixel.colors(NeoPixelColors.YELLOW))
+    elif affection >= 30:
+        target_range2.show_color(neopixel.colors(NeoPixelColors.GREEN))
+    else:
+        target_range2.show_color(neopixel.colors(NeoPixelColors.BLUE))
+def handle_petting_state():
+    global affection_points, gameState2, affection
+    basic.show_number(affection)
+    update_friendship_led()
+    if gameState2 == 9:
+        # Head
+        start_time22 = input.running_time()
+        target_range2.show_color(neopixel.colors(NeoPixelColors.YELLOW))
+        # ループ開始時の時間を記録
+        # stateが9の間、このループを繰り返す
+        while gameState2 == 9:
+            # 1. 親密度の値を表示
+            # basic.show_number()
+            # 2. 新しい入力をチェック
+            process_hand_signals()
+            # この関数でPetの値が更新されると仮定
+            # 3. 正しい操作が行われたかチェック
+            if petType == 1:
+                affection_points = 30
+                gameState2 = 8
+                # 成功したので次のステートへ
+                break
+            # ループを抜ける
+            # 4. タイムオーバーをチェック
+            passed_time22 = input.running_time() - start_time22
+            if passed_time22 >= 10000:
+                # 10秒経過したら
+                gameState2 = 8
+                # タイムオーバーとして次のステートへ
+                break
+    elif gameState2 == 10:
+        # Body
+        start_time22 = input.running_time()
+        # ループ開始時の時間を記録
+        # stateが9の間、このループを繰り返す
+        while gameState2 == 10:
+            # 1. 親密度の値を表示
+            # basic.show_number()
+            # 2. 新しい入力をチェック
+            process_hand_signals()
+            # この関数でPetの値が更新されると仮定
+            # 3. 正しい操作が行われたかチェック
+            if petType == 2:
+                affection_points = 20
+                gameState2 = 8
+                # 成功したので次のステートへ
+                break
+            # ループを抜ける
+            # 4. タイムオーバーをチェック
+            passed_time22 = input.running_time() - start_time22
+            if passed_time22 >= 10000:
+                # 10秒経過したら
+                gameState2 = 8
+                # タイムオーバーとして次のステートへ
+                break
+    elif gameState2 == 11:
+        # Tail
+        start_time22 = input.running_time()
+        # ループ開始時の時間を記録
+        # stateが9の間、このループを繰り返す
+        while gameState2 == 11:
+            # 1. 親密度の値を表示
+            # basic.show_number()
+            # 2. 新しい入力をチェック
+            process_hand_signals()
+            # この関数でPetの値が更新されると仮定
+            # 3. 正しい操作が行われたかチェック
+            if petType == 3:
+                affection_points = 10
+                gameState2 = 8
+                # 成功したので次のステートへ
+                break
+            # ループを抜ける
+            # 4. タイムオーバーをチェック
+            passed_time22 = input.running_time() - start_time22
+            if passed_time22 >= 10000:
+                # 10秒経過したら
+                gameState2 = 8
+                # タイムオーバーとして次のステートへ
+                break
+    if affection_points > 0:
+        affection += affection_points
+        gameState2 = 8
+        music.play(music.create_sound_expression(WaveShape.SINE,
+                2306,
+                3095,
+                255,
+                0,
+                500,
+                SoundExpressionEffect.NONE,
+                InterpolationCurve.LINEAR),
+            music.PlaybackMode.UNTIL_DONE)
+    elif petType != 0:
+        # Invalid pet action
+        gameState2 = 8
+# Return to the initial state
+def handle_state_transitions():
+    global punchType, petType, HP, affection, gameState2
+    # Manages the transitions between game states.
+    if gameState2 == 0:
+        # Idle state
+        # Reset all parameters
+        punchType = 0
+        petType = 0
+        HP = 100
+        affection = 0
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        basic.show_icon(IconNames.HEART)
+    elif gameState2 == 2:
+        # Post-battle state
+        punchType = 0
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        if HP <= 0:
+            HP = 0
+            basic.show_number(HP)
+            gameState2 = 7
+        else:
+            # Victory
+            gameState2 = randint(3, 5)
+    elif gameState2 == 8:
+        # Randomly determine the next attack spot
+        # Post-petting state
+        petType = 0
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        if affection >= 100:
+            affection = 100
+            gameState2 = 12
+        else:
+            # Max affection
+            gameState2 = randint(9, 11)
+affection_points = 0
+affection = 0
+petType = 0
+punchType = 0
+left_hand = ""
+right_hand = ""
+target_range2: neopixel.Strip = None
+gameState2 = 0
+range3: neopixel.Strip = None
+range2: neopixel.Strip = None
+range1: neopixel.Strip = None
+strip: neopixel.Strip = None
+HP = 0
+HP = 100
+strip = neopixel.create(DigitalPin.P0, 432, NeoPixelMode.RGB)
+range1 = strip.range(0, 144)
+range2 = strip.range(144, 144)
+range3 = strip.range(288, 144)
+# Randomly determine the next petting spot
+# --- Main Loop ---
+# --- Program Start ---
+initialize()
+
+def on_forever():
+    # This function runs repeatedly in the background and controls the main game logic.
+    process_hand_signals()
+    # Always interpret hand signals
+    if [0, 2, 8].index_of(gameState2) >= 0:
+        handle_state_transitions()
+    elif [3, 4, 5].index_of(gameState2) >= 0:
+        handle_battle_state()
+    elif [9, 10, 11].index_of(gameState2) >= 0:
+        handle_petting_state()
+    elif gameState2 == 7:
+        play_victory_animation()
+    elif gameState2 == 12:
+        play_affection_max_animation()
+    elif gameState2 == 6:
+        gameOver()
+basic.forever(on_forever)
